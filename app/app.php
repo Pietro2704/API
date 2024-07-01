@@ -1,14 +1,6 @@
 <?php 
 
-echo "<h3>APLICAÇÃO</h3>";
-
 define("API_BASE", "http://192.168.1.4/back_end/Project/api/index.php?option=");
-// API_BASE . 'status';
-
-$result = api_request('status');
-echo "<pre>";
-print_r($result);
-
 
 function api_request($option){
   $client  = curl_init(API_BASE . $option);
@@ -16,5 +8,22 @@ function api_request($option){
   $response = curl_exec($client);
   return json_decode($response, true);
 }
+
+
+
+
+echo "<h3>APLICAÇÃO</h3>";
+for($i=0; $i<=10; $i++){
+  // chamada api
+  $result = api_request('random');
+  
+  // verify if response is ok
+  if($result['status'] == 'ERROR'){
+    die('Aconteceu um erro na chamada da api');
+  }
+  
+  echo "Valor randomico:" . $result['data'] . "<br>";
+}
+
 
 ?>
