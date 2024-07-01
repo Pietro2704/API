@@ -1,9 +1,9 @@
 <?php 
 
-define("API_BASE", "http://192.168.1.4/back_end/Project/api/index.php?option=");
+define("BASE_API", "http://192.168.1.4/back_end/Project/api/index.php?option=");
 
 function api_request($option){
-  $client  = curl_init(API_BASE . $option);
+  $client  = curl_init(BASE_API . $option);
   curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
   $response = curl_exec($client);
   return json_decode($response, true);
@@ -15,7 +15,7 @@ function api_request($option){
 echo "<h3>APLICAÇÃO</h3>";
 for($i=0; $i<=10; $i++){
   // chamada api
-  $result = api_request('random');
+  $result = api_request('random&min=20&max=50');
   
   // verify if response is ok
   if($result['status'] == 'ERROR'){
